@@ -541,8 +541,13 @@ public class RepositoryDAORdbImpl implements RepositoryDAO {
       ListRepositoriesRequest.Response.Builder builder =
           ListRepositoriesRequest.Response.newBuilder();
 
-      repositoryEntities.forEach(
-          repositoryEntity -> builder.addRepositories(repositoryEntity.toProto()));
+      for (RepositoryEntity repositoryEntity : repositoryEntities) {
+        if (repositoryEntity == null) {
+          LOGGER.error("Unexpected repository entity is null");
+          //throw new ModelDBException("Unexpected repository entity is null", Code.INTERNAL);
+        }
+        builder.addRepositories(repositoryEntity.toProto());
+      }
 
       long totalRecords = RdbmsUtils.count(session, repositoryEntityRoot, criteriaQuery);
       builder.setTotalRecords(totalRecords);
