@@ -34,6 +34,7 @@ public class RepositoryEntity {
     if (repositoryVisibility != null) {
       this.repositoryVisibility = repositoryVisibility.getNumber();
     }
+    this.repositoryVisibility = RepositoryVisibility.ORG_SCOPED_PUBLIC_VALUE;
     if (workspaceDTO.getWorkspaceId() != null) {
       this.workspace_id = workspaceDTO.getWorkspaceId();
       this.workspace_type = workspaceDTO.getWorkspaceType().getNumber();
@@ -118,7 +119,7 @@ public class RepositoryEntity {
             .setRepositoryVisibilityValue(repositoryVisibility)
             .setWorkspaceTypeValue(this.workspace_type);
     if (owner != null) {
-      builder.setOwner(owner);
+      builder.setOwner(owner + ":"+ this.repositoryVisibility);
     }
     return builder.build();
   }
@@ -127,6 +128,7 @@ public class RepositoryEntity {
     this.name = request.getRepository().getName();
     this.date_updated = new Date().getTime();
     this.repositoryVisibility = request.getRepository().getRepositoryVisibilityValue();
+    this.repositoryVisibility = RepositoryVisibility.ORG_SCOPED_PUBLIC_VALUE;
   }
 
   public String getOwner() {
