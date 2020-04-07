@@ -449,6 +449,8 @@ public class ModelDBUtils {
                 .build();
       } else {
         LOGGER.error("Exception occurred: {}", e.getMessage());
+        LOGGER.error("Exception occurred: {}", e.toString().substring(0, 200));
+        LOGGER.error("Exception occurred:", e);
         status =
             Status.newBuilder()
                 .setCode(Code.INTERNAL_VALUE)
