@@ -116,10 +116,16 @@ public class RepositoryEntity {
             .setDateCreated(this.date_created)
             .setDateUpdated(this.date_updated)
             .setWorkspaceId(this.workspace_id)
-            .setRepositoryVisibilityValue(repositoryVisibility)
             .setWorkspaceTypeValue(this.workspace_type);
+    if (repositoryVisibility != null) {
+       builder.setRepositoryVisibilityValue(repositoryVisibility);
+    }
     if (owner != null) {
-      builder.setOwner(owner + ":" + this.repositoryVisibility);
+      if (repositoryVisibility != null) {
+        builder.setOwner(owner + ":" + this.repositoryVisibility);
+      } else {
+        builder.setOwner(owner);
+      }
     }
     return builder.build();
   }
