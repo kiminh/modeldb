@@ -70,6 +70,9 @@ public class VersioningServiceImpl extends VersioningServiceImplBase {
           new RequestLatencyResource(modelDBAuthInterceptor.getMethodName())) {
         if (request.hasPagination()) {
 
+          if (request.getPagination().getPageNumber() < 1) {
+            throw new ModelDBException("Page number is invalid", Code.INVALID_ARGUMENT);
+          }
           if (request.getPagination().getPageLimit() < 1
               || request.getPagination().getPageLimit() > 100) {
             throw new ModelDBException("Page limit is invalid", Code.INVALID_ARGUMENT);
