@@ -449,7 +449,11 @@ public class ModelDBUtils {
                 .build();
       } else {
         LOGGER.error("Exception occurred: {}", e.getMessage());
-        LOGGER.error("Exception occurred: {}", e.toString().substring(0, 200));
+        StackTraceElement[] stack = e.getStackTrace();
+        int maxLines = (stack.length > 4) ? 5 : stack.length;
+        for (int n = 0; n < maxLines; n++) {
+          LOGGER.error(stack[n].toString());
+        }
         LOGGER.error("Exception occurred:", e);
         status =
             Status.newBuilder()
