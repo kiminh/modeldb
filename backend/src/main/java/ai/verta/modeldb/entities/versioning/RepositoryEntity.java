@@ -119,7 +119,7 @@ public class RepositoryEntity {
             .setRepositoryVisibilityValue(repositoryVisibility)
             .setWorkspaceTypeValue(this.workspace_type);
     if (owner != null) {
-      builder.setOwner(owner + ":"+ this.repositoryVisibility);
+      builder.setOwner(owner + ":" + this.repositoryVisibility);
     }
     return builder.build();
   }
